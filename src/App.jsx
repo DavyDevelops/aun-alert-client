@@ -20,7 +20,7 @@ export const UserContext = createContext(null);
 
 const App = () => {
   const [user, setUser] = useState();
-  const [loading, setLoading] = useState(false);
+  
 
   // Check if user is logged in
   // useEffect(() => {
@@ -30,20 +30,18 @@ const App = () => {
   //     }
   //   })
     useEffect(() => {
-      setLoading(true)
+      
     axios.get('https://aun-alert-api.vercel.app/aunalertsystem/verify', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
     .then(res => {
-      setLoading(false)
       if (res.data.user) {
         setUser(res.data.user);
       }
     })
     .catch(err => {
-      setLoading(false)
       console.log(err);
     });
   }, []);
