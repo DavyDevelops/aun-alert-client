@@ -5,6 +5,7 @@ import axios from 'axios'
 import {toast} from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css" 
 import { FaAt, FaPhoneFlip, FaRegAddressCard, FaUserPlus} from 'react-icons/fa6'
+import { CircleLoader } from 'react-spinners'
 
 
 
@@ -18,6 +19,8 @@ const AddContact = () => {
     phone: '',
     address: ''
   })
+
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -33,6 +36,7 @@ const AddContact = () => {
   
     // Validate phone number
     if (!phoneRegex.test(values.phone)) {
+      setLoading(true)
       toast.error("Invalid Nigerian phone number format. Example of valid format 234XXXXXXXXXX.", {
         position: "top-right",
         autoClose: 5000
@@ -52,12 +56,14 @@ const AddContact = () => {
       }
     })
     .then((res) => {
+      setLoading(false)
       toast.success("Contact Added Successfully", {
         position: "top-right",
         autoClose: 5000
       });
       navigate('/dashboard');
     }).catch((err) => {
+      setLoading(false)
       console.log(err);
     });
   }

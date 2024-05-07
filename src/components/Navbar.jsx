@@ -11,7 +11,7 @@ const Navbar = () => {
     <div className='navbar'>
         <div className='navbar-left'>
             <Link to="/"  className='navbar-brand'>
-                AUN ALERT SYSTEM
+            {user.name} ALERT SYSTEM
             </Link>
             </div>
             <div className='navbar-right'>

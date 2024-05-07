@@ -5,6 +5,8 @@ import axios from 'axios'
 import {toast} from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css" 
 import { FaAt, FaPhoneFlip, FaRegAddressCard, FaUserPlus} from 'react-icons/fa6'
+import { CircleLoader } from 'react-spinners'
+
 
 const EditContact = () => {
     
@@ -15,7 +17,7 @@ const EditContact = () => {
     address: ''
   })
 
-
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const {id} = useParams();
@@ -31,6 +33,7 @@ const EditContact = () => {
   
     // Validate phone number
     if (!phoneRegex.test(values.phone)) {
+      
       toast.error("Invalid Nigerian phone number format. example of valid format 234XXXXXXXXXX.", {
         position: "top-right",
         autoClose: 5000
@@ -64,6 +67,7 @@ const EditContact = () => {
 
 
     useEffect(() => {
+      setLoading(true)
         // axios.get('http://localhost:3000/aunalertsystem/contact/'+id, {
         //   headers: {
         //     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -75,6 +79,7 @@ const EditContact = () => {
           }
         })
         .then((res) => {
+          setLoading(false)
             console.log(res)
           if (res.data.success){
             setValues({
@@ -86,6 +91,7 @@ const EditContact = () => {
 
           }
         }).catch((err) => {
+          setLoading(false)
           console.log(err)
 
         }) 
