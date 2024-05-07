@@ -10,9 +10,18 @@ const Navbar = () => {
   return (
     <div className='navbar'>
         <div className='navbar-left'>
+        {
+            user ? <>
             <Link to="/"  className='navbar-brand'>
-            {user.name} ALERT SYSTEM
+            {user.name.toUpperCase()} ALERT SYSTEM
             </Link>
+            </>
+            : <>
+            <Link to="/"  className='navbar-brand'>
+            AUN ALERT SYSTEM
+            </Link>
+            </>
+}
             </div>
             <div className='navbar-right'>
             <Link  to="/about" className='navbar-brand'>About</Link>

@@ -20,7 +20,7 @@ const AddContact = () => {
     address: ''
   })
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
 
 
@@ -36,7 +36,7 @@ const AddContact = () => {
   
     // Validate phone number
     if (!phoneRegex.test(values.phone)) {
-      setLoading(true)
+      // setLoading(true)
       toast.error("Invalid Nigerian phone number format. Example of valid format 234XXXXXXXXXX.", {
         position: "top-right",
         autoClose: 5000
@@ -56,16 +56,17 @@ const AddContact = () => {
       }
     })
     .then((res) => {
-      setLoading(false)
-      toast.success("Contact Added Successfully", {
+      toast.success("Contact Updated Successfully", {
         position: "top-right",
         autoClose: 5000
       });
       navigate('/dashboard');
     }).catch((err) => {
-      setLoading(false)
       console.log(err);
-    });
+      toast.error("An error occurred. Please make sure the email and phone number are unique.", {
+        position: "top-right",
+        autoClose: 5000
+      })});
   }
   
 

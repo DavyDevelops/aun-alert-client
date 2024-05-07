@@ -18,13 +18,13 @@ const Register = () => {
   const [errors, setErrors] = useState({})
   const [serverErrors, setServerErrors] = useState([])
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
  
   const handleInput = (event) => {
     setValues({...values, [event.target.name]: event.target.value})
   }
   const handleSubmit = (e) => {
-    setLoading(true)
+    // setLoading(true)
     e.preventDefault()
     //prevent default submission
     const errs = Validation(values)
@@ -32,7 +32,7 @@ const Register = () => {
     if(errs.name === "" && errs.email === "" && errs.password === ""){
       axios.post('https://aun-alert-api.vercel.app/aunalertsystem/register', values)
       .then(res => {
-        setLoading(false)
+        // setLoading(false)
         toast.success("Account Has Been Created Successfully", {
           position: "top-right",
           autoClose: 5000
@@ -46,7 +46,7 @@ const Register = () => {
       //   })
         navigate('/login')
       }).catch(err =>{
-        setLoading(false)
+        // setLoading(false)
         console.log(err)
         if(err.response.data.errors){
           setServerErrors(err.response.data.errors)

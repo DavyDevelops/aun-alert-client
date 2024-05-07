@@ -10,10 +10,10 @@ const SendMessage = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [sending, setSending] = useState(false); // State to handle sending status
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true)
+        // setLoading(true)
 
         // Fetch previously sent messages
         // axios.get('http://localhost:3000/aunalertsystem/messages', {
@@ -27,13 +27,13 @@ const SendMessage = () => {
             }
         })
         .then((res) => {
-            setLoading(false)
+            // setLoading(false)
             if (res.data.success){
                 setMessages(res.data.messages);
             }
         })
         .catch((err) => {
-            setLoading(false)
+            // setLoading(false)
             console.log(err);
         }); 
         

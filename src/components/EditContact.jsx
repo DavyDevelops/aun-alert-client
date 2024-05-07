@@ -17,7 +17,7 @@ const EditContact = () => {
     address: ''
   })
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const {id} = useParams();
@@ -47,7 +47,7 @@ const EditContact = () => {
     //     Authorization: `Bearer ${localStorage.getItem('token')}`
     //   }
     // })
-            axios.put(`https://aun-alert-api.vercel.app/aunalertsystem/update-contact/${id}`, values,{
+    axios.put(`https://aun-alert-api.vercel.app/aunalertsystem/update-contact/${id}`, values,{
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -60,14 +60,19 @@ const EditContact = () => {
       navigate('/dashboard');
     }).catch((err) => {
       console.log(err);
+      toast.error("An error occurred. Please make sure the email and phone number are unique.", {
+        position: "top-right",
+        autoClose: 5000
+      });
     });
+    
   }
   
   
 
 
     useEffect(() => {
-      setLoading(true)
+      // setLoading(true)
         // axios.get('http://localhost:3000/aunalertsystem/contact/'+id, {
         //   headers: {
         //     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -79,7 +84,7 @@ const EditContact = () => {
           }
         })
         .then((res) => {
-          setLoading(false)
+          // setLoading(false)
             console.log(res)
           if (res.data.success){
             setValues({
@@ -91,7 +96,7 @@ const EditContact = () => {
 
           }
         }).catch((err) => {
-          setLoading(false)
+          // setLoading(false)
           console.log(err)
 
         }) 

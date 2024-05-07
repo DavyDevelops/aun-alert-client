@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css"
 import { UserContext } from "../App"
 import { CircleLoader } from 'react-spinners'
 
-//state manage ment implementation
 const Login = () => {
   const [values, setValues] = useState({
     email: '',
@@ -19,46 +18,37 @@ const Login = () => {
   const [errors, setErrors] = useState({})
   const [serverErrors, setServerErrors] = useState([])
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Add this line
  
   const handleInput = (event) => {
     setValues({...values, [event.target.name]: event.target.value})
   }
   const handleSubmit = (e) => {
-    setLoading(true)
+    setLoading(true) // Set loading to true when the form is submitted
     e.preventDefault()
-    //prevent default submission
     const errs = Validation(values)
     setErrors(errs)
-    // if(errs.email === "" && errs.password === ""){
-    //   axios.post('http://localhost:3000/aunalertsystem/login', values)
-    //   .then(res => {
-    //     toast.success("Login Successfully", {
-    //       position: "top-right",
-    //       autoClose: 5000
-    //     })
-        if(errs.email === "" && errs.password === ""){
-axios.post('https://aun-alert-api.vercel.app/aunalertsystem/login', values)
-  .then(res => {
-    setLoading(true)
-    toast.success("Login Successfully", {
-      position: "top-right",
-      autoClose: 5000
-    });
-    localStorage.setItem("token", res.data.token);
-    setUser(res.data.user);
-    navigate('/dashboard');
-  })
-  .catch((err) => {
-    setLoading(true)
-    console.log(err);
-    if (err.response && err.response.data && err.response.data.errors) {
-      setServerErrors(err.response.data.errors);
-    } else {
-      console.error("An unexpected error occurred:", err);
-    }
-  });
-
+    if(errs.email === "" && errs.password === ""){
+      axios.post('https://aun-alert-api.vercel.app/aunalertsystem/login', values)
+      .then(res => {
+        setLoading(false) // Set loading to false when the request is successful
+        toast.success("Login Successfully", {
+          position: "top-right",
+          autoClose: 5000
+        });
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
+        navigate('/dashboard');
+      })
+      .catch((err) => {
+        setLoading(false) // Set loading to false when an error occurs
+        console.log(err);
+        if (err.response && err.response.data && err.response.data.errors) {
+          setServerErrors(err.response.data.errors);
+        } else {
+          console.error("An unexpected error occurred:", err);
+        }
+      });
     }
   }
   return (
@@ -74,14 +64,13 @@ axios.post('https://aun-alert-api.vercel.app/aunalertsystem/login', values)
           {
             errors.email && <span className='error'>{errors.email}</span>
           }
-
         </div>
         <div className='form-group'>
           <label htmlFor="password">Password:</label>
           <input type="password" placeholder="******" className='form-control' name='password' 
           onChange={handleInput}
           />
-                    {
+          {
             errors.password && <span className='error'>{errors.password}</span>
           }
         </div>
@@ -92,7 +81,9 @@ axios.post('https://aun-alert-api.vercel.app/aunalertsystem/login', values)
             ))
           )
         }
-        <button className='form-btn' onClick={handleSubmit}>Login</button>
+        <button className='form-btn' onClick={handleSubmit} disabled={loading}> {/* Disable the button when loading */}
+          {loading ? <CircleLoader /> : "Login"} {/* Show the loader when loading */}
+        </button>
         <p>Dont Have An Account? <Link to='/register'>Register</Link></p>
       </form>
     </div>
