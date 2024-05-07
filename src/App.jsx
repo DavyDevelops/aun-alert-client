@@ -14,7 +14,7 @@ import EditContact from './components/EditContact';
 import LogOut from './components/LogOut';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import NotFound from './pages/NotFound';
-import { CircleLoader } from 'react-spinners'
+
 
 export const UserContext = createContext(null);
 
